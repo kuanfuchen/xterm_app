@@ -1,0 +1,13 @@
+[{
+  "text":"cd",
+  "class":"ChangingDir"
+},{
+  "text":"ls",
+  "class":"DisplayingList"
+},{
+  "text":"view",
+  "class":"DisplayingTable"
+},{
+  "text":"help",
+  "class":"Help"
+}]
