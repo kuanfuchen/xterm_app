@@ -17,7 +17,7 @@ const keyupEnterFun = (txt, analyzeText) => {
     }
   })
   if(beHaviorArr.length > 0) beHaviorArr.sort((a,b)=>{return a.textPosition - b.textPosition});
-  console.log(beHaviorArr,'beHaviorArr')
+  // console.log(beHaviorArr,'beHaviorArr')
   return beHaviorArr
 }
 const keyupBackspaceFun = (txt) => {
@@ -27,7 +27,7 @@ const keyupBackspaceFun = (txt) => {
   const storagedLen = separatingTxt.length - 1;
   separatingTxt.splice(storagedLen, 1);
   const text = separatingTxt.join('');
-  console.log(text)
+  console.log(text,'text')
   return text
 }
 const analyzeText = [{

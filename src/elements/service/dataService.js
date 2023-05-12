@@ -49,5 +49,26 @@ const storagedData = {
     dataFileNum:0,
     resultNum:0
   }
+};
+const first_Rank = {
+  enum:['project', 'package'],
+  selectedTtpe:null,
+  selectedTypeID:'',
+  selectedTypeName:'',
+  selectedTypePrefix:'',
+  selectedTypeSuffix:'',
+};
+const second_Rank = {
+  enum:['result', 'datafile', 'task'],
+  selectedTtpe: null,
+  selectedTypeID:'',
+  selectedTypeName:'',
+  selectedTypePrefix:'',
+  selectedTypeSuffix:'',
+};
+
+export {
+  storagedData,
+  first_Rank,
+  second_Rank
 }
-module.exports = storagedData;

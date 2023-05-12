@@ -1,0 +1,23 @@
+{
+  cd project projectName
+  cd result resultName
+  cd datafile datafileName
+  cd package packageName
+}
+{
+  ls
+  ls project
+  ls result
+  ls datafile
+  ls package
+}
+{
+  view
+  view project projectName
+  view result resultName
+  view datafile datafileName
+  view package packageName
+}
+{
+  help
+}
