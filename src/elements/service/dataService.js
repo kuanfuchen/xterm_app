@@ -51,20 +51,20 @@ const storagedData = {
   }
 };
 const first_Rank = {
-  enum:['project', 'package'],
-  selectedTtpe:null,
-  selectedTypeID:'',
-  selectedTypeName:'',
-  selectedTypePrefix:'',
-  selectedTypeSuffix:'',
+  enum: ['project', 'package'],
+  selectedType: null,
+  selectedTypeID: '',
+  selectedTypeName: '',
+  selectedTypePrefix: '',
+  selectedTypeSuffix: '',
 };
 const second_Rank = {
-  enum:['result', 'datafile', 'task'],
-  selectedTtpe: null,
-  selectedTypeID:'',
-  selectedTypeName:'',
-  selectedTypePrefix:'',
-  selectedTypeSuffix:'',
+  enum: ['result', 'datafile', 'task'],
+  selectedType: null,
+  selectedTypeID: '',
+  selectedTypeName: '',
+  selectedTypePrefix: '',
+  selectedTypeSuffix: '',
 };
 
 export {
