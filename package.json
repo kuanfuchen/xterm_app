@@ -9,10 +9,38 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.2.47"
+    "vite-plugin-static-copy": "^0.15.0",
+    "vue": "^3.2.47",
+    "xterm": "^5.1.0",
+    "xterm-addon-fit": "^0.7.0",
+    "xterm-link-provider": "^1.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
     "vite": "^4.3.2"
+  },
+  "big-data-processor": {
+    "name": "KFC",
+    "type": "element",
+    "author": "KFC",
+    "email": "creazykfc@gmail.com",
+    "description": "This element is used to configure BDP desktop",
+    "icon": "dist/images.png",
+    "element": "dist/custom-elements.umd.js",
+    "tagName": "xterm-bdp-element",
+    "isModule": false,
+    "scopes": [
+      "mongo.KFCDB",
+      "state",
+      "sync",
+      "broadcast",
+      "desktop",
+      "window",
+      "system.read",
+      "package.read",
+      "project.read",
+      "project.write",
+      "task.run"
+    ]
   }
 }
