@@ -1,44 +1,57 @@
 const rankFileType = ['project', 'package', 'result', 'datafile', 'task']
 const keyupEnterFun = (txt, analyzeText) => {
+  console.log(txt, 'txt');
   if(txt === undefined) return;
   const separatingTxt = txt.split(/\s/);
-  let beHaviorArr = [];
+  const beHaviorArr = [];
   const correspondArr = [];
-  separatingTxt.forEach((txt, i) => {
+  //有關鍵字才開始存後面的文字到下一個關鍵字
+  separatingTxt.forEach((text, i) => {
     if(!correspondArr[beHaviorArr.length - 1]) correspondArr[beHaviorArr.length - 1] = [];
-    const textPos = analyzeText.findIndex((keyObj) => keyObj.text === txt);
+    const textPos = analyzeText.findIndex((keyObj) => keyObj.text === text);
     if(textPos !== -1){
       if(correspondArr.length > 0 ){
-        // beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1];
         beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt;
         beHaviorArr[beHaviorArr.length - 1].fileType = correspondArr[beHaviorArr.length - 1].fileType;
       }
-      beHaviorArr.push({text: txt, textPosition:i, correspondArr: [], fileType: null})
+      beHaviorArr.push({text: text, textPosition:i, correspondArr: [], fileType: null})
     }else{
       //如果兩個以上filetype怎辦?後面會覆蓋前面?
-      const indexTxt = rankFileType.indexOf(txt);
-      if(indexTxt === -1){
-        if(!correspondArr[beHaviorArr.length - 1].txt) correspondArr[beHaviorArr.length - 1].txt = [];
-        correspondArr[beHaviorArr.length - 1].txt.push(txt)
+      
+      if(beHaviorArr.length > 0){
+        const indexTxt = rankFileType.indexOf(text);
+        if(indexTxt === -1){
+          beHaviorArr
+          if(!correspondArr[beHaviorArr.length - 1].txt) correspondArr[beHaviorArr.length - 1].txt = [];
+          correspondArr[beHaviorArr.length - 1].txt.push(text)
+        }else{
+          correspondArr[beHaviorArr.length - 1].fileType = text;
+        }
       }else{
-        correspondArr[beHaviorArr.length - 1].fileType = txt;
+        return text;
       }
-      // correspondArr[beHaviorArr.length - 1].push(txt)
     }
-  })
+  });
+  console.log(beHaviorArr,'beHaviorArr');
+  console.log(txt)
+  if(beHaviorArr.length === 0) return txt;
+  if(beHaviorArr.length === correspondArr.length){
+    beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt;
+    beHaviorArr[beHaviorArr.length - 1].fileType = correspondArr[beHaviorArr.length - 1].fileType;
+  }
   if(beHaviorArr.length > 0) beHaviorArr.sort((a,b)=>{return a.textPosition - b.textPosition});
-  // console.log(beHaviorArr,'beHaviorArr')
   return beHaviorArr
 }
 const keyupBackspaceFun = (txt) => {
+  console.log('keyupBackspaceFun',txt)
   //remove text site
   if(txt === undefined) return;
   const separatingTxt = txt.split('');
   const storagedLen = separatingTxt.length - 1;
   separatingTxt.splice(storagedLen, 1);
   const text = separatingTxt.join('');
-  console.log(text,'text')
-  return text
+  console.log(text,'text');
+  return text;
 }
 const analyzeText = [{
   "key": "enter",

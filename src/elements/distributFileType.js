@@ -34,7 +34,6 @@ const checkedRank = () => {
   }
 };
 const receivedMesDistribution = (parsingTextObj) => {
-  console.log(parsingTextObj);
   checkedRank();
   parsingTextObj.forEach((classifyFile)=>{
     if(classifyFile.fileType === 'project')return project(classifyFile);

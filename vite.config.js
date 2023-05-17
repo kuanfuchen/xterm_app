@@ -14,7 +14,7 @@ export default defineConfig({
   viteStaticCopy({
     targets: [
       {
-        src: './src/assets/cmd_icon.png',
+        src: './src/assets/images.png',
         dest: './'//包裹的資料夾名稱，給予./為無資料夾
       }
     ]

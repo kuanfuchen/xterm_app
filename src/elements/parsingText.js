@@ -4,20 +4,31 @@ import keyAliases from './utils/keyAlises_document.js';
 import { receivedMesDistribution } from './distributFileType.js';
 let storagedCode = '';
 const checkedAnalyzeText = (transferText, num) => {
-  // const transferTextLower = transferText.toLowerCase();
   //讀取好需要的keyup  && command將文字切割後傳至下方distributionfiletype接收
   const analyzeText = analyzeT.map((e)=> e);
   const specialKey = keyAliases.filter((ev) => ev.keyVal === num)[0];
-  if(specialKey === undefined) storagedCode += transferText;
+  if(specialKey === undefined) {
+    storagedCode += transferText;
+    console.log(storagedCode, 'storagedCode')
+  };
+  console.log(specialKey,'specialKey');
   if(specialKey === undefined || specialKey.length === 0) return;
-  const transferTextLower = storagedCode.toLowerCase();
+  // const transferTextLower = storagedCode.toLowerCase().trim();
+  // console.log(transferTextLower,'transferTextLower')
+  const transferTextLower = transferText.toLowerCase().trim();
   const splitFinObj = specialKey.programing(transferTextLower, analyzeText);
+  if(typeof splitFinObj === 'string') return;
   // if(typeof splitFinObj === Array) {
+  console.log('Object')
+  if(specialKey.key === 'enter') {
+    console.log('enter')
     receivedMesDistribution(splitFinObj);
+    storagedCode = '';
+  };
   // }
 }
-// checkedAnalyzeText('ls project TEXT -public  ls', 13);
-// checkedAnalyzeText('txtls', 8)
+checkedAnalyzeText('ls project TEXT -public cd ', 13);
+// checkedAnalyzeText('txtls', 13)
 // checkedAnalyzeText('ls', 13)
 // export
 // {
