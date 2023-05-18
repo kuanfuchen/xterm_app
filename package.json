@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reactivex/rxjs": "^6.6.7",
+    "rxjs": "^7.8.1",
     "vite-plugin-static-copy": "^0.15.0",
     "vue": "^3.2.47",
     "xterm": "^5.1.0",

@@ -1,5 +1,6 @@
 import {storagedData, first_Rank, second_Rank} from './service/dataService.js';
-import error_message from './message/unexpect_message.js';
+// import error_message from './message/unexpect_message.js';
+import { exportedContent } from './message/export_message.js';
 import project from './filetype/handleProject.js';
 import result from './filetype/handleResult.js';
 import datafile from './filetype/handleDatafile.js';
@@ -49,7 +50,7 @@ const receivedMesDistribution = (parsingTextObj) => {
         }
       }
     }else{
-      error_message(classifyFile)
+      exportedContent(classifyFile)
     }
   })
 }

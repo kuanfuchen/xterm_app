@@ -8,10 +8,14 @@
   import { Terminal } from "xterm";
   import { FitAddon} from 'xterm-addon-fit';
   import { ref, onMounted} from 'vue';
+  import { Subject, takeUntil } from "rxjs";
   // import { WebLinksAddon } from 'xterm-addon-web-links';
   // import {LinkProvider} from 'xterm-link-provider';
-  import {bdpDataBase} from './service/apiService.js';
+  import { bdpDataBase } from './service/apiService.js';
   import checkedAnalyzeText from './parsingText.js';
+  import {exportTextContent$} from './message/export_message.js';
+  const compSubject$ = new Subject();
+  // import {removedTextContentExport} from './message/export_message';
   const onloadXtermElement = defineEmits(['onload']);
   // const defaultTheme = {
   //   foreground: '#ffffff', // 字体
@@ -61,6 +65,7 @@
       checkedAnalyzeText(e.key, e.keyCode);
     })
   };
+  exportTextContent$.pipe(takeUntil(compSubject$)).subscribe((str) => terminal.write(str))
   onMounted(() => {
     onloadXtermElement('onload', bdpDataBase);
     initXterm();
@@ -74,7 +79,6 @@
     -ms-user-select: none;
     -webkit-user-select: none;
 }
-
 .xterm.focus,
 .xterm:focus {
     outline: none;

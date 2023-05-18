@@ -1,6 +1,5 @@
 const rankFileType = ['project', 'package', 'result', 'datafile', 'task']
 const keyupEnterFun = (txt, analyzeText) => {
-  console.log(txt, 'txt');
   if(txt === undefined) return;
   const separatingTxt = txt.split(/\s/);
   const beHaviorArr = [];
@@ -32,8 +31,6 @@ const keyupEnterFun = (txt, analyzeText) => {
       }
     }
   });
-  console.log(beHaviorArr,'beHaviorArr');
-  console.log(txt)
   if(beHaviorArr.length === 0) return txt;
   if(beHaviorArr.length === correspondArr.length){
     beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt;
