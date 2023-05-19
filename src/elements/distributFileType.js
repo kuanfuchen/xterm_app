@@ -35,9 +35,13 @@ const checkedRank = () => {
   }
 };
 const receivedMesDistribution = (parsingTextObj) => {
+  console.log(parsingTextObj,'parsingTextObj')
   checkedRank();
   parsingTextObj.forEach((classifyFile)=>{
-    if(classifyFile.fileType === 'project')return project(classifyFile);
+    if(classifyFile.fileType === 'project'){
+      console.log('--------')
+      return project(classifyFile);
+    }
     if(currentlyRank.mainRank !== null){
       if(classifyFile.fileType === 'result' ) result(classifyFile);
       if(classifyFile.fileType === 'datafile' ) datafile(classifyFile);
@@ -50,7 +54,11 @@ const receivedMesDistribution = (parsingTextObj) => {
         }
       }
     }else{
-      exportedContent(classifyFile)
+      const transmitObject = {
+        text:classifyFile,
+        keyNum:13
+      }
+      exportedContent(transmitObject)
     }
   })
 }

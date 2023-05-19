@@ -3,37 +3,35 @@ import analyzeJS from './utils/analyzeText_document.js';
 import keyAliases from './utils/keyAlises_document.js';
 import { receivedMesDistribution } from './distributFileType.js';
 import { exportedContent } from './message/export_message.js';
-// import { removedTextContentExport } from './message/export_message.js'
-// import receivedMessage from './message/message.js';
 let storagedCode = '';
-const checkedanalyzeText = (transferText, num) => {
+const checkedanalyzeText = (transferText, keyNum) => {
   //讀取好需要的keyup  && command將文字切割後傳至下方distributionfiletype接收
   const analyzeText = analyzeJS.map((e)=> e);
-  const specialKey = keyAliases.filter((ev) => ev.keyVal === num)[0];
-  if(specialKey === undefined) {
+  const keyword = keyAliases.filter((ev) => ev.keyVal === keyNum)[0];
+  if(keyword === undefined) {
     storagedCode += transferText;
     console.log(transferText, 'transferText')
-    exportedContent(transferText)
-    // return transferText;
-  };
-  console.log(specialKey,'specialKey');
-  if(specialKey === undefined || specialKey.length === 0) return;
-  const transferTextLower = storagedCode.toLowerCase().trim();
-  // console.log(transferTextLower,'transferTextLower')
-  // const transferTextLower = transferText.toLowerCase().trim();
-  const splitFinishType = specialKey.programing(transferTextLower, analyzeText);
-  if(typeof splitFinishType === 'string' ){
-    // removedTextContentExport(splitFinishType)
-    // return splitFinishType
-    exportedContent(splitFinishType);
+    const transmitObject = {
+      text: transferText,
+      keyNum
+    }
+    exportedContent(transmitObject)
     return
   };
-  // if(typeof splitFinishType === Array) {
-  if(specialKey.key === 'enter') {
-    receivedMesDistribution(splitFinishType);
+  if(keyword === undefined || keyword.length === 0) return;
+  const splitFinishType = keyword.programing(storagedCode, analyzeText);
+  const transmitObject = {
+    text: splitFinishType,
+    keyNum
+  }
+  if(typeof splitFinishType === 'string'){
     storagedCode = '';
+    exportedContent(transmitObject);
+    console.log(transmitObject, 'transmitObject')
+    return
   };
-  // }
+  receivedMesDistribution(splitFinishType);
+  storagedCode ='';
 }
 // checkedanalyzeJSext('ls project TEXT -public cd ', 13);
 // checkedanalyzeJSext('txtls', 13)
