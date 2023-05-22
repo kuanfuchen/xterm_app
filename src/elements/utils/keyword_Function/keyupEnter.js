@@ -11,7 +11,7 @@ const keyupEnterFun = (txt, analyzeText) => {
     const textPos = analyzeText.findIndex((keyObj) => keyObj.text === text);
     if(textPos !== -1){
       if(correspondArr.length > 0 ){
-        beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt;
+        beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt.join(' ');
         beHaviorArr[beHaviorArr.length - 1].fileType = correspondArr[beHaviorArr.length - 1].fileType;
       }
       beHaviorArr.push({text: text, textPosition:i, correspondArr: [], fileType: null})
@@ -21,7 +21,6 @@ const keyupEnterFun = (txt, analyzeText) => {
       if(beHaviorArr.length > 0){
         const indexTxt = rankFileType.indexOf(text);
         if(indexTxt === -1){
-          beHaviorArr
           if(!correspondArr[beHaviorArr.length - 1].txt) correspondArr[beHaviorArr.length - 1].txt = [];
           correspondArr[beHaviorArr.length - 1].txt.push(text)
         }else{
@@ -35,10 +34,11 @@ const keyupEnterFun = (txt, analyzeText) => {
   
   if(beHaviorArr.length === 0) return txt;
   if(beHaviorArr.length === correspondArr.length){
-    beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt;
+    if(correspondArr[beHaviorArr.length - 1].txt && correspondArr[beHaviorArr.length - 1].txt.length > 0) beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt.join(' ');
     beHaviorArr[beHaviorArr.length - 1].fileType = correspondArr[beHaviorArr.length - 1].fileType;
   }
   if(beHaviorArr.length > 0) beHaviorArr.sort((a,b)=>{return a.textPosition - b.textPosition});
+
   return beHaviorArr
 };
 export default keyupEnterFun;

@@ -1,3 +1,77 @@
+<template>
+  <div>
+    <p class="redtext">Xterm Component</p>
+    <div ref="xterm" class="xtermStyle"></div>
+  </div>
+</template>
+<script setup>
+  // import "./style.css";
+  import { Terminal } from "xterm";
+  import { FitAddon} from 'xterm-addon-fit';
+  import { ref, onMounted} from 'vue';
+  import { Subject, takeUntil } from "rxjs";
+  // import { WebLinksAddon } from 'xterm-addon-web-links';
+  // import {LinkProvider} from 'xterm-link-provider';
+  import { bdpDataBase } from './service/apiService.js';
+  import checkedAnalyzeText from './parsingText.js';
+  import {exportTextContent$} from './message/export_message.js';
+  const compSubject$ = new Subject();
+  const onloadXtermElement = defineEmits(['onload']);
+  const terminal = new Terminal({
+    fontSize: 18,
+    cursorBlink: true,
+    // rows: _rows.value,
+    rows:1000,
+    cols:1000,
+    rendererType: 'canvas',
+    fontWeight:700,
+  });
+  
+  terminal.prompt = () => {
+    terminal.write(`\r\n\x1b[28m\u001b[32muser>`);
+  };
+  const xterm = ref(null);
+  const fitAddon = new FitAddon();
+  const initXterm = () => {
+    terminal.open(xterm.value);
+    fitAddon.fit();
+    terminal.focus();
+    terminal.write('Xterm JS');
+    terminal.prompt();
+    terminal.onKey(async(ev)=>{
+      const e = ev.domEvent;
+      checkedAnalyzeText(e.key, e.keyCode);
+    })
+  };
+  exportTextContent$.pipe(takeUntil(compSubject$)).subscribe((transferObj) => {
+    if(transferObj.keyNum === 13){
+      terminal.clearSelection();
+      terminal.clearTextureAtlas();
+      if(transferObj.text !== '') terminal.write(`\r\n${transferObj.text}`);
+      terminal.prompt();
+    }else if(transferObj.keyNum === 8){
+      if(terminal._core.buffer.x > 5 ) terminal.write('\b \b');
+    }else{
+      terminal.write(transferObj.text);
+    }
+    terminal.scrollToBottom();
+  })
+  onMounted(() => {
+    onloadXtermElement('onload', bdpDataBase);
+    initXterm();
+  });
+</script>
+<style lang="scss">
+.redtext{
+    color: red;
+  }
+.xtermStyle{
+  width: 100vw;
+  height:100%;
+  text-align:left;
+  padding-left: 10px;
+  background: black;
+}
 .xterm {
   cursor: text;
   position: relative;
@@ -12,10 +86,6 @@
 .xterm .xterm-helpers {
   position: absolute;
   top: 0;
-  /**
-   * The z-index of the helpers must be higher than the canvases in order for
-   * IMEs to appear on top.
-   */
   z-index: 5;
 }
 .xterm .xterm-helper-textarea {
@@ -44,9 +114,11 @@
   white-space: nowrap;
   z-index: 1;
 }
+
 .xterm .composition-view.active {
   display: block;
 }
+
 .xterm .xterm-viewport {
   /* On OS X this is required in order for the scroll bar to appear fully opaque */
   background-color: #000;
@@ -83,7 +155,7 @@
 }
 
 .xterm.enable-mouse-events {
-  /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
+    /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
   cursor: default;
 }
 
@@ -130,10 +202,9 @@
 }
 
 .xterm-screen .xterm-decoration-container .xterm-decoration {
-z-index: 6;
-position: absolute;
+	z-index: 6;
+	position: absolute;
 }
-
 .xterm-decoration-overview-ruler {
   z-index: 7;
   position: absolute;
@@ -141,16 +212,9 @@ position: absolute;
   right: 0;
   pointer-events: none;
 }
-
 .xterm-decoration-top {
   z-index: 2;
   position: relative;
 }
-.xtermStyle{
-  width: 100vw;
-  height:100%;
-  text-align:left;
-  padding-left: 10px;
-  background: #000;
-  /* margin-left: 10px; */
-}
+
+</style>

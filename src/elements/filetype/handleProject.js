@@ -1,9 +1,10 @@
+// project儲存
 // import { ProjectDir} from '../commandText/ChangingDir.js';
 import { DisplayProjectList } from '../commandText/DisplayingList.js';
 import { projectsList } from '../service/apiService.js';
 import analyzeText from '../utils/analyzeText_document.js';
 import {exportedContent} from '../message/export_message.js'
-const projectFormat =async (commandTextObj)=>{
+const projectFormat = async (commandTextObj)=>{
   console.log(commandTextObj);
   // class放入物件內
   analyzeText.forEach(async(commdanProject)=>{
@@ -12,7 +13,7 @@ const projectFormat =async (commandTextObj)=>{
       const exportProjectText= await projectBehavior.displayContent(projectsList);
       exportedContent({
         keyNum: 13,
-        text:exportProjectText
+        text: exportProjectText
       })
     }
   })
@@ -28,5 +29,4 @@ const drawList = async(id, name, pageIndex = 0)=>{
   const test= await classProjectList.viewList(projectsList);
   console.log(test,'test')
 }
-
 export default projectFormat;

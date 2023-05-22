@@ -8,7 +8,15 @@ class ChangingDir{
     console.log('changingPathway');
   }
 }
-class ProjectDir extends ChangingDir{};
+class ProjectDir extends ChangingDir{
+  super();
+  async displayContent(listAPI){
+    const projectList = await listAPI();
+    console.log(projectList, 'projectList');
+    const project = projectList.filter((project)=> this.name === project.name);
+    return project;
+  }
+};
 class ResultDir extends ChangingDir{};
 class DatafileDir extends ChangingDir{};
 class PackageDir extends ChangingDir{};
