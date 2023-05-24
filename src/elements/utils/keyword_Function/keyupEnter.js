@@ -6,6 +6,9 @@ const keyupEnterFun = (txt, analyzeText) => {
   const beHaviorArr = [];
   const correspondArr = [];
   //有關鍵字才開始存後面的文字到下一個關鍵字
+  //cd project/xxx/result/xxx
+  //ls project/xxx/datafile/xxx
+  //view project/xxx/result/xxx
   separatingTxt.forEach((text, i) => {
     if(!correspondArr[beHaviorArr.length - 1]) correspondArr[beHaviorArr.length - 1] = [];
     const textPos = analyzeText.findIndex((keyObj) => keyObj.text === text);
@@ -19,7 +22,9 @@ const keyupEnterFun = (txt, analyzeText) => {
       //如果兩個以上filetype怎辦?後面會覆蓋前面?
       if(beHaviorArr.length > 0){
         const indexTxt = rankFileType.indexOf(text);
-        if(indexTxt !== -1 && correspondArr[beHaviorArr.length - 1].fileType === null){
+        console.log(indexTxt, 'indexTxt')
+        if(indexTxt > 0 && correspondArr[beHaviorArr.length - 1].fileType === null){
+          console.log(text, 'filetype')
           correspondArr[beHaviorArr.length - 1].fileType = text;
         }else{
           if(!correspondArr[beHaviorArr.length - 1].txt) correspondArr[beHaviorArr.length - 1].txt = [];
