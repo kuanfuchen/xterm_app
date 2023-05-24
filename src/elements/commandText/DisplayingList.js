@@ -12,12 +12,12 @@ class DisplayProjectList extends DisplayList{
   async displayContent(listAPI){
     const getProjectList = await super.displayContent(listAPI);
     if(getProjectList.records.length === 0) return `\r\n don't Project`;
-    const projectInfoHeader = `\u001b[93mProject name \u001b[37m| Create time`
+    const projectListHeader = `\u001b[93mProject name \u001b[37m| Create time`
     let projectListContent = '';
     getProjectList.records.forEach((record)=>{
       projectListContent += `\r\n\u001b[36m${record.name} \u001b[37m${record.createdAt} \x1b[8m${record.id}\x1b[28m`;
     })
-    return projectInfoHeader + projectListContent;
+    return projectListHeader + projectListContent;
   }
 }
 class DisplayResultList extends DisplayList{

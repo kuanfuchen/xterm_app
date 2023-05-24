@@ -14,31 +14,35 @@ const keyupEnterFun = (txt, analyzeText) => {
         beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt.join(' ');
         beHaviorArr[beHaviorArr.length - 1].fileType = correspondArr[beHaviorArr.length - 1].fileType;
       }
-      beHaviorArr.push({text: text, textPosition:i, correspondArr: [], fileType: null})
+      beHaviorArr.push({text: text, textPosition: i, correspondArr: [], fileType: null})
     }else{
       //如果兩個以上filetype怎辦?後面會覆蓋前面?
-      
       if(beHaviorArr.length > 0){
         const indexTxt = rankFileType.indexOf(text);
-        if(indexTxt === -1){
-          if(!correspondArr[beHaviorArr.length - 1].txt) correspondArr[beHaviorArr.length - 1].txt = [];
-          correspondArr[beHaviorArr.length - 1].txt.push(text)
-        }else{
+        if(indexTxt !== -1 && correspondArr[beHaviorArr.length - 1].fileType === null){
           correspondArr[beHaviorArr.length - 1].fileType = text;
+        }else{
+          if(!correspondArr[beHaviorArr.length - 1].txt) correspondArr[beHaviorArr.length - 1].txt = [];
+          correspondArr[beHaviorArr.length - 1].txt.push(text);
         }
+        // if(indexTxt === -1){
+        //   if(!correspondArr[beHaviorArr.length - 1].txt) correspondArr[beHaviorArr.length - 1].txt = [];
+        //   correspondArr[beHaviorArr.length - 1].txt.push(text);
+        // }else{
+        //   correspondArr[beHaviorArr.length - 1].fileType = text;
+        // }
       }else{
         return text;
       }
     }
   });
-  
   if(beHaviorArr.length === 0) return txt;
   if(beHaviorArr.length === correspondArr.length){
-    if(correspondArr[beHaviorArr.length - 1].txt && correspondArr[beHaviorArr.length - 1].txt.length > 0) beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt.join(' ');
+    if(correspondArr[beHaviorArr.length - 1].txt && correspondArr[beHaviorArr.length - 1].txt.length > 0 ) beHaviorArr[beHaviorArr.length - 1].correspondArr = correspondArr[beHaviorArr.length - 1].txt.join(' ');
     beHaviorArr[beHaviorArr.length - 1].fileType = correspondArr[beHaviorArr.length - 1].fileType;
-  }
-  if(beHaviorArr.length > 0) beHaviorArr.sort((a,b)=>{return a.textPosition - b.textPosition});
-
+  };
+  if(beHaviorArr.length > 0) beHaviorArr.sort((a, b)=>{return a.textPosition - b.textPosition});
+  console.log(beHaviorArr)
   return beHaviorArr
 };
 export default keyupEnterFun;

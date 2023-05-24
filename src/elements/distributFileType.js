@@ -56,7 +56,8 @@ const receivedMesDistribution = (parsingTextObj) => {
     }else{
       const transmitObject = {
         text:classifyFile,
-        keyNum:13
+        keyNum:13,
+        pathway:''
       }
       exportedContent(transmitObject)
     }

@@ -2,8 +2,8 @@ const storagedData = {
   project:{
     id:'',
     name:'',
-    prefix:'',
-    suffix:'',
+    // prefix:'',
+    // suffix:'',
     updatedAt:'',
     createdAt:'',
     dataFileNum:0,
