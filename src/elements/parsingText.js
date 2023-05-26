@@ -1,6 +1,6 @@
 // import analyzeJson from './utils/analyzeJSext_document' assert {type:'json'};
 import analyzeJS from './utils/analyzeText_document.js';
-import keyNumber from './utils/keyNumber.js';
+import keyNumber from './utils/keyCode.js';
 import { receivedMesDistribution } from './distributFileType.js';
 import { exportedContent } from './message/export_message.js';
 let storagedCode = '';
@@ -10,7 +10,6 @@ const checkedanalyzeText = (transferText) => {
   const keyword = keyNumber.filter((ev) => ev.key === transferText)[0];
   if(keyword === undefined) {
     storagedCode += transferText;
-    console.log(transferText, 'transferText')
     const transmitObject = {
       text: transferText,
       transferText
@@ -27,10 +26,9 @@ const checkedanalyzeText = (transferText) => {
   if(typeof splitFinishType === 'string'){
     storagedCode = '';
     exportedContent(transmitObject);
-    console.log(transmitObject, 'transmitObject')
     return
   };
   receivedMesDistribution(splitFinishType);
-  storagedCode ='';
+  storagedCode = '';
 }
 export default checkedanalyzeText;

@@ -39,8 +39,7 @@
     terminal.prompt();
     terminal.onKey(async(ev)=>{
       const e = ev.domEvent;
-      console.log(e, 'e');
-      checkedAnalyzeText(e.key, e.keyCode);
+      checkedAnalyzeText(e.key);
     })
   };
   exportTextContent$.pipe(takeUntil(compSubject$)).subscribe((transferObj) => {

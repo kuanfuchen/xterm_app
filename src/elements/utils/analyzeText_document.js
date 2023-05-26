@@ -4,9 +4,12 @@ import { projectsList } from '../service/apiService.js'
 const analyzeText = [
   {
     text:'cd',
-    project:(name)=> new ProjectDir(name),
-    api:(id) => projectsList(id),
-    // 'project':
+    // project:(name)=> new ProjectDir(name),
+    // api:(id) => projectsList(id),
+    project:{
+      api:(id) => projectsList(id),
+      handleAPIData:(api, id, name) => ProjectDir(api, id, name),
+    }
     // 'result':
     // 'datafile':
   },{
@@ -20,18 +23,17 @@ const analyzeText = [
     // }
   },{
     'text':'view',
-
-
   },{
     'text':'help',
-  },{
-    text:'cd',
-    project:{
-      class:(name)=> new ProjectDir(name),
-      api:(id) => projectsList(id),
-    },
-    result:{},
-    datafile:{},
-  }
+  },
+  // {
+  //   text:'cd',
+  //   project:{
+  //     class:(name)=> new ProjectDir(name),
+  //     api:(id) => projectsList(id),
+  //   },
+  //   result:{},
+  //   datafile:{},
+  // }
 ];
 export default analyzeText;
