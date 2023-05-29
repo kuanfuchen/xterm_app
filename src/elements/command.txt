@@ -1,22 +1,32 @@
 {
-  cd project projectName
-  cd result resultName
-  cd datafile datafileName
-  cd package packageName
+  達成
+  cd project/projectName/result/resultName
+  cd result/resultName
+  cd datafile/datafileName
+  cd package/packageName
+  cd task/taskName
+  未達成:
+  cd projectName/result/resultName //本身project有值會幫忙找另一個project
+  cd resultName //本身result有值會幫忙找另一個result
+  cd datafileName //本來datafileName有值會幫忙找另一個datafile
+  假如目前rank已知project && result 打入完整路徑也能直接轉換給予不同的project/result
 }
 {
   ls
   ls project
-  ls result
-  ls datafile
+  ls result //已知project
+  ls datafile //已知project
   ls package
+  ls project/projectName/result
+  ls project/projectName/datafile
 }
 {
   view
-  view project projectName
-  view result resultName
-  view datafile datafileName
-  view package packageName
+  view project/projectName
+  view result/resultName //已知project
+  view datafile/datafileName //已知project
+  view package/packageName
+  view task/taskName
 }
 {
   help
