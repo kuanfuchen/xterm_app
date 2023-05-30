@@ -12,7 +12,7 @@
   // import { WebLinksAddon } from 'xterm-addon-web-links';
   // import {LinkProvider} from 'xterm-link-provider';
   import { bdpDataBase } from './service/apiService.js';
-  import checkedAnalyzeText from './parsingText.js';
+  import checkedAnalyzeText from './handleMessage/parsingText.js';
   import {exportTextContent$} from './message/export_message.js';
   const compSubject$ = new Subject();
   const onloadXtermElement = defineEmits(['onload']);
