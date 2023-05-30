@@ -3,7 +3,7 @@
 import { projectsList } from '../service/apiService.js';
 import analyzeText from '../utils/analyzeText_document.js';
 import { exportedContent } from '../message/export_message.js';
-import {storagedData, first_Rank, second_Rank } from '../service/dataService.js';
+import {storagedData, first_Rank, second_Rank } from '../service/statusService.js';
 const projectFormat = async (commandTextObj)=>{
   // class放入物件內
   analyzeText.forEach(async(commdanProject)=>{
