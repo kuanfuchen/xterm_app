@@ -1,4 +1,4 @@
-const checkedEnterFormat = (parsingTextObj)=>{
+const checkedCorrectRankFormat = (parsingTextObj)=>{
   //檢測輸入rank是否錯誤
   const projectIndex = parsingTextObj.rankInfo.findIndex((parsingRank)=> parsingRank.rank === 'project');
   const packageIndex = parsingTextObj.rankInfo.findIndex((parsingRank)=> parsingRank.rank === 'package');
@@ -12,23 +12,28 @@ const checkedEnterFormat = (parsingTextObj)=>{
   const enterCommandTextRank = {
     mainRank: null,
     mainRankName: '',
+    childRankExport:false,
     childRank: null,
     childRankName: ''
   }
   if(projectIndex > -1) {
     enterCommandTextRank.mainRank = parsingTextObj.rankInfo[projectIndex].rank;
-    enterCommandTextRank.mainRank = parsingTextObj.rankInfo[projectIndex].fileName;
+    enterCommandTextRank.mainRankName = parsingTextObj.rankInfo[projectIndex].fileName;
   }else if(packageIndex > -1){
     enterCommandTextRank.mainRank = parsingTextObj.rankInfo[packageIndex].rank;
-    enterCommandTextRank.mainRank = parsingTextObj.rankInfo[packageIndex].fileName;
+    enterCommandTextRank.mainRankName = parsingTextObj.rankInfo[packageIndex].fileName;
   };
+  
   if(resultIndex > -1){
     enterCommandTextRank.childRank = parsingTextObj.rankInfo[resultIndex].rank;
     enterCommandTextRank.childRankName = parsingTextObj.rankInfo[resultIndex].fileName;
+    enterCommandTextRank.childRankExport = true;
   }else if(datafileIndex > -1){
     enterCommandTextRank.childRank = parsingTextObj.rankInfo[datafileIndex].rank;
     enterCommandTextRank.childRankName = parsingTextObj.rankInfo[datafileIndex].fileName;
+    enterCommandTextRank.childRankExport = true;
   }
+  console.log(enterCommandTextRank, 'enterCommandTextRank')
   return enterCommandTextRank;
 }
-export default checkedEnterFormat;
+export default checkedCorrectRankFormat;

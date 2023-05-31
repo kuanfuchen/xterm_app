@@ -50,7 +50,7 @@ const storagedData = {
     resultNum:0
   }
 };
-const first_Rank = {
+const main_Rank = {
   enum: ['project', 'package'],
   selectedType: null,
   selectedTypeID: '',
@@ -58,7 +58,7 @@ const first_Rank = {
   selectedTypePrefix: '',
   selectedTypeSuffix: '',
 };
-const second_Rank = {
+const child_Rank = {
   enum: ['result', 'datafile', 'task'],
   selectedType: null,
   selectedTypeID: '',
@@ -69,6 +69,6 @@ const second_Rank = {
 
 export {
   storagedData,
-  first_Rank,
-  second_Rank
+  main_Rank,
+  child_Rank,
 }

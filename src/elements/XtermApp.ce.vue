@@ -25,9 +25,16 @@
     rendererType: 'canvas',
     fontWeight:700,
   });
-  let pathway = '';
+  // let pathway = '';
+  const pathway = {
+    mainRank:'',
+    childRank:'',
+  };
   terminal.prompt = () => {
-    terminal.write(`\r\n\x1b[28m\u001b[32muser>${pathway}`);
+    const mainRank  = pathway.mainRank !== '' ? pathway.mainRank + '>' : '';
+    let childRank = '';
+    if(mainRank !== '') childRank = pathway.childRank !=='' ? pathway.childRank + '>' : '';
+    terminal.write(`\r\n\x1b[28m\u001b[32muser>${mainRank}${childRank}`);
   };
   const xterm = ref(null);
   const fitAddon = new FitAddon();
@@ -46,11 +53,21 @@
     if(transferObj.transferText === 'Enter'){
       terminal.clearSelection();
       terminal.clearTextureAtlas();
-      if(transferObj.text !== '') terminal.write(`\r\n${transferObj.text}`);
-      if(transferObj.pathway !== undefined) pathway = transferObj.pathway;
       terminal.prompt();
     }else if(transferObj.transferText === 'Backspace'){
       if(terminal._core.buffer.x > 5 ) terminal.write('\b \b');
+    }else if(transferObj.transferText === 'pathway'){
+      if(transferObj.fileType === 'project' || transferObj.fileType === 'package'){
+        if(transferObj.pathway.name !== pathway.mainRank){
+          pathway.mainRank = transferObj.pathway.name;
+          pathway.childRank = '';
+        }
+      }else if(transferObj.fileType ==='result' || transferObj.fileType === 'datafile'){
+        if(transferObj.pathway.name !== pathway.childRank){
+          pathway.childRank = transferObj.pathway.name;
+        }
+      }
+      terminal.prompt();
     }else{
       terminal.write(transferObj.text);
     }

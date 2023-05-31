@@ -1,3 +1,4 @@
+import {main_Rank, child_Rank} from '../service/statusService.js';
 class ChangingDir{
   constructor(name){
     this.name = name;
@@ -7,49 +8,28 @@ class ChangingDir{
     return await listAPI(this.name);
   }
 }
-// class ProjectDir extends ChangingDir{
-//   async displayContent(listAPI){
-//     const projectList = await super.displayContent(listAPI);
-//     const lowerProjectName = this.name.toLowerCase();
-//     const filteredProjects = projectList.records.filter((project)=> lowerProjectName === project.name.toLowerCase());
-//     if(filteredProjects.length === 1 && filteredProjects[0].name){
-//       return filteredProjects[0].name;
-//     }else if(filteredProjects.length > 1){
-//       const projectListHeader = `\u001b[93mProject name \u001b[37m| Create time`;
-//       let projectListContent = '';
-//       filteredProjects.forEach((project)=>{
-//         projectListContent +=`\r\n\u001b[36m${project.name} \u001b[37m${project.createdAt} \x1b[8m${project.id}\x1b[28m`
-//       })
-//       return projectListHeader + projectListContent;
-//     }else{
-//       return `\r\n don't Project`
-//     }
-//   }
-// };
-const ProjectDir = async(api, id, name)=>{
-  const lowerProjectName = name.toLowerCase();
-  const projectList = await api(id);
-  const filteredProjects = projectList.records.filter((project)=> lowerProjectName === project.name.toLowerCase());
-  if(filteredProjects.length === 1 && filteredProjects[0].name){
-    return filteredProjects[0].name;
-  }else if(filteredProjects.length > 1){
-    const projectListHeader = `\u001b[93mProject name \u001b[37m| Create time`;
-    let projectListContent = '';
-    filteredProjects.forEach((project)=>{
-      projectListContent +=`\r\n\u001b[36m${project.name} \u001b[37m${project.createdAt} \x1b[8m${project.id}\x1b[28m`
-    })
-    return projectListHeader + projectListContent;
-  }else{
-    return `\r\n don't Project`
+const projectDir = async(api, id, name)=>{
+  const projectList = await api;
+  console.log(projectList, 'projectList');
+  const filteredProjects = projectList.records.filter((project)=> name === project.name.toLowerCase());
+  console.log(filteredProjects, 'filteredProjects')
+  if(filteredProjects.length === 1){
+    main_Rank.selectedType = 'project';
+    main_Rank.selectedTypeName = filteredProjects[0].name;
   }
+  return filteredProjects
 }
-class ResultDir extends ChangingDir{};
+const resultDir = async(api, id, name)=>{
+  const resultList = await api;
+  console.log(resultList,'resultList')
+
+}
 class DatafileDir extends ChangingDir{};
 class PackageDir extends ChangingDir{};
 
 export {
-  ProjectDir,
-  ResultDir,
+  projectDir,
+  resultDir,
   DatafileDir,
   PackageDir,
 }

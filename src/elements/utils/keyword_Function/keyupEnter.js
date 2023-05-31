@@ -4,7 +4,8 @@ const keyupEnterFun = (txt, analyzeText) => {
   const txtLower = txt.toLowerCase().trim();
   const separatedText = txtLower.split(/\s/);
   if(separatedText.length < 1) return;
-  const checkedAnlayTextIndex = analyzeText.findIndex((keyObj) => separatedText[0] === keyObj.text);
+  const checkedAnlayTextIndex = analyzeText.findIndex((keyObj) => separatedText[0] === keyObj.commandText);
+  console.log(checkedAnlayTextIndex, 'checkedAnlayTextIndex')
   if(checkedAnlayTextIndex === -1) return txt;
   let analyTextSite;
   analyzeText.forEach((keyObj)=>{

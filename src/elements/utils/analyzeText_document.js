@@ -1,30 +1,33 @@
 import {DisplayProjectList, DisplayResultList, DisplayDatafileList} from '../commandText/DisplayingList.js';
-import { ProjectDir } from '../commandText/ChangingDir.js';
-import { projectsList } from '../service/apiService.js'
+import { projectDir } from '../commandText/ChangingDir.js';
+import { projectsList } from '../service/apiService.js';
 const analyzeText = [
   {
-    text:'cd',
+    commandText:'cd',
     // project:(name)=> new ProjectDir(name),
     // api:(id) => projectsList(id),
     project:{
-      api:(id) => projectsList(id),
-      handleAPIData:(api, id, name) => ProjectDir(api, id, name),
+      api:async() => await projectsList(),
+      handleAPIData:(api, id, name) => projectDir(api, id, name),
+    },
+    result:{
+      api:async(projectID)=> await resultsList(projectID),
+      handleAPIData:(api, id, name) => resultDir(api, id, name),
+    },
+    datafile:{
     }
     // 'result':
     // 'datafile':
   },{
-    'text':'ls',
-    'project':(id)=> new DisplayProjectList(id),
-    'result':(id) => new DisplayResultList(id),
-    'datafile':(id) => new DisplayDatafileList(id),
-    // 'project':{
-    //   class:(id)=> new DisplayProjectList(id),
-    //   // api:
-    // }
+    commandText:'ls',
+    project:{
+      handleAPIData:(api, id, name) => DisplayProjectList,
+      api:() => projectsList(),
+    }
   },{
-    'text':'view',
+    commandText:'view',
   },{
-    'text':'help',
+    commandText:'help',
   },
   // {
   //   text:'cd',
