@@ -1,11 +1,9 @@
-// import analyzeJson from './utils/analyzeJSext_document' assert {type:'json'};
 import analyzeJS from '../utils/analyzeText_document.js';
-import keyCode from '../utils/keyCode.js';
-import { receivedMesDistribution } from './distributFileType.js';
+import keyCode from '../utils/keyFunc.js';
+import { receivedMegDistribution } from './distributFileType.js';
 import { exportedContent } from '../message/export_message.js';
 let storagedCode = '';
 const checkedanalyzeText = (transferText) => {
-  console.log(transferText, 'transferText')
   //讀取好需要的keyup  && command將文字切割後傳至下方distributionfiletype接收
   const analyzeText = analyzeJS.map((e)=> e);
   const keyword = keyCode.filter((ev) => ev.key === transferText)[0];
@@ -15,7 +13,7 @@ const checkedanalyzeText = (transferText) => {
       text: transferText,
       transferText
     }
-    exportedContent(transmitObject)
+    exportedContent(transmitObject);
     return
   };
   if(keyword === undefined || keyword.length === 0) return;
@@ -26,13 +24,18 @@ const checkedanalyzeText = (transferText) => {
     text: parsingTextFinishArr,
     transferText
   }
+  if(transferText === 'Backspace'){
+    storagedCode = parsingTextFinishArr;
+    return exportedContent(transmitObject);
+  }
+  console.log(transmitObject,'transmitObject')
   if(typeof parsingTextFinishArr === 'string'){
-    storagedCode = '';
     exportedContent(transmitObject);
+    storagedCode = '';
     return
   };
-  // receivedMesDistribution(parsingTextFinishArr);
-  receivedMesDistribution(transmitObject);
+  // receivedMegDistribution(parsingTextFinishArr);
+  receivedMegDistribution(transmitObject);
   storagedCode = '';
 }
 export default checkedanalyzeText;

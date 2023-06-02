@@ -17,22 +17,22 @@ const transmitInfoToXterm = {
     exportText:''
   }
 }
-const exportPrompt = (projectInfo)=>{
-  projectInfo.correctProjectInfo.forEach((project)=>{
+const exportPrompt = (fileTypeInfo) => {
+  fileTypeInfo.correctProjectInfo.forEach((fileType)=>{
     transmitInfoToXterm.pathway.isUsed = true;
-    transmitInfoToXterm.pathway.name = project.name;
+    transmitInfoToXterm.pathway.name = fileType.name;
     transmitInfoToXterm.transferText = 'pathway';
   })
   exportedContent(transmitInfoToXterm)
 }
 const exportContentToXterm = (fileTypeInfo) => {
   console.log(fileTypeInfo, 'fileTypeInfo');
-  if(fileTypeInfo.commandText === 'cd' ) {
-    if(fileTypeInfo.correctProjectInfo.length === 1) exportPrompt(fileTypeInfo);
+  if( fileTypeInfo.commandText === 'cd' ) {
+    if( fileTypeInfo.correctProjectInfo.length === 1 ) exportPrompt(fileTypeInfo);
   }
 };
 const exportedContent = (textContent)=>{
-  _exportTextContent$.next(textContent);
+  _exportTextContent$.next( textContent );
 }
 const exportTextContent$ =_exportTextContent$.asObservable();
 export {

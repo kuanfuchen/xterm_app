@@ -1,9 +1,9 @@
 import { main_Rank, child_Rank} from '../service/statusService.js';
 // import error_message from './message/unexpect_message.js';
 import { exportedContent } from '../message/export_message.js';
-import checkedCorrectRankFormat from './handleWorstFormat.js';
-import project from '../filetype/project.js';
-import result from '../filetype/result.js';
+import checkedCorrectRankFormat from './handleWrongFormat.js';
+import projectFormat from '../filetype/project.js';
+import resultFormat from '../filetype/result.js';
 // import datafile from '../filetype/datafile.js';
 // 由StatusService檢查在哪個階層，確定階層後開啟該層指令、或是到下層指令
 // 可以同時，看不同階層的物件或是同階層的物件
@@ -42,14 +42,14 @@ const checkedSavedRank = () => {
 };
 const handledMainRank = (rankFormat, fileName, isExportMeg, commandText)=>{
   //發送至project、package搜索相同命名的id，存至statusService再回傳
-  if(rankFormat === 'project') project(fileName, commandText, isExportMeg);
+  if(rankFormat === 'project') projectFormat(fileName, commandText, isExportMeg);
   // if(rankFormat === 'package') package(fileName, commandText);
   checkedSavedRank();
 }
 const handledChildRank = (rankFormat, fileName, isExportMeg, commandText)=>{
-  if(rankFormat === 'result') result(fileName, commandText, isExportMeg)
+  if(rankFormat === 'result') resultFormat(fileName, commandText, isExportMeg)
 }
-const receivedMesDistribution = (transmitObject) => {
+const receivedMegDistribution = (transmitObject) => {
   const parsingTextObj = transmitObject.text;
   
   if(parsingTextObj.rankInfo.length === 0) return;
@@ -73,7 +73,7 @@ const receivedMesDistribution = (transmitObject) => {
   // }
   //優先使用傳入資料mainRank，mainRank沒有資料由saveData取出。都沒有直接輸出沒有資料
   if(formatAssort.mainRank !== null){
-    handledMainRank(formatAssort.mainRank, formatAssort.mainRankName, formatAssort.childRankExport, parsingTextObj.commandText);
+    handledMainRank(formatAssort.mainRank, formatAssort.mainRankName, formatAssort.childRankExport, parsingTextObj.commandText );
     // if(handledWorstFormat.mainRank === 'project') return project(handledWorstFormat.mainRankName)
     // if(handledWorstFormat.mainRank === 'package') return package(handledWorstFormat.mainRankName, true)
   }
@@ -82,5 +82,5 @@ const receivedMesDistribution = (transmitObject) => {
   }
 }
 export {
-  receivedMesDistribution,
+  receivedMegDistribution,
 }
