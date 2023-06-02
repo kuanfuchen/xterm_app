@@ -1,9 +1,9 @@
 {
   達成
   cd project/projectName/result/resultName
-  cd result/resultName
-  cd datafile/datafileName
   cd package/packageName
+  cd result/resultName //已知project
+  cd datafile/datafileName //已知project
   cd task/taskName
   未達成:
   cd projectName/result/resultName //本身project有值會幫忙找另一個project
@@ -12,7 +12,7 @@
   假如目前rank已知project && result 打入完整路徑也能直接轉換給予不同的project/result
 }
 {
-  ls
+  ls //已知階層
   ls project
   ls result //已知project
   ls datafile //已知project
@@ -21,7 +21,7 @@
   ls project/projectName/datafile
 }
 {
-  view
+  view //已知階層
   view project/projectName
   view result/resultName //已知project
   view datafile/datafileName //已知project
@@ -30,4 +30,13 @@
 }
 {
   help
+}
+{
+  rename name //已知階層
+  rename project/projectname/changename
+  rename result/resultname/changename //已知project
+}
+{
+
+  
 }
