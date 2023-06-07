@@ -34,7 +34,12 @@
 {
   rename name //已知階層
   rename project/projectname/changename
+  rename project projectname result resultname changename
   rename result/resultname/changename //已知project
+  rename project projectname
+  //還是移去project/result/datafile字眼
+  rename resultName/changeResultName
+  rename projectName/change
 }
 {
 

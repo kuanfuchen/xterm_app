@@ -28,7 +28,6 @@ const checkedanalyzeText = (transferText) => {
     storagedCode = parsingTextFinishArr;
     return exportedContent(transmitObject);
   }
-  console.log(transmitObject,'transmitObject')
   if(typeof parsingTextFinishArr === 'string'){
     exportedContent(transmitObject);
     storagedCode = '';
