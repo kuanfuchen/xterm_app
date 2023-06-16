@@ -1,4 +1,4 @@
-const rankFileType = ['project', 'package', 'result', 'datafile', 'task'];
+const rankFileType = ['$project', '$package', '$result', '$datafile', '$task'];
 const keyupEnterFun = (txt, analyzeText) => {
   if(txt === undefined) return;
   const txtLowerCase = txt.toLowerCase().trim();
@@ -14,9 +14,12 @@ const keyupEnterFun = (txt, analyzeText) => {
     if(index !== -1) analyTextSite = index;
   });
   const analyzeCommandText = separatedText.splice(analyTextSite, 1);
+  
   // 移去command text
-  const joinSeparatedText = separatedText.join(/\s/);
+  const joinSeparatedText = separatedText.join(' ');
   console.log(joinSeparatedText, 'joinSeparatedText')
+  const commandQuotes = joinSeparatedText.match(/'(\w+\W+\w+)'/g);
+  console.log(commandQuotes, 'commandQuotes')
   // 移去指令再組合
   const combinedText = /\//g;
   const separatedBacksLash = joinSeparatedText.split(combinedText);

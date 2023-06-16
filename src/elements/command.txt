@@ -42,6 +42,11 @@
   rename projectName/change
 }
 {
-
-  
+  commandChatacter project/project_a/result/result/A (X)
+  commandChatacter project pro_B result result result xxx (X)
+  commandChatacter proA XXX resB (X)
+  commandChatacter project xxx proA porject result Ares result (X)
+  commandChatacter $project/project/a/$result/result_b/result (可能)
+  commandChatacter projectName/name/result/resultName/xx_result (可能)
+  commandCharacter project/*/result/*
 }

@@ -78,7 +78,7 @@
     initXterm();
   });
 </script>
-<style lang="scss">
+<style>
   .redtext{
     color: red;
   }
