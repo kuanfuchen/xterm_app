@@ -33,13 +33,14 @@
 }
 {
   rename name //已知階層
-  rename project/projectname/changename
+  rename project/(project/name)/*(change/name)
   rename project projectname result resultname changename
-  rename result/resultname/changename //已知project
+  rename result/resultname/*changename //已知project
   rename project projectname
+  rename projectName newProject
   //還是移去project/result/datafile字眼
-  rename resultName/changeResultName
-  rename projectName/change
+  rename resultName/*changeResultName
+  rename projectName/*changedName
 }
 {
   commandChatacter project/project_a/result/result/A (X)
