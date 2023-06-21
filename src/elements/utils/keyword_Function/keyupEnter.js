@@ -1,15 +1,15 @@
-const rankFileType = ['$project', '$package', '$result', '$datafile', '$task'];
+const rankMainType = ['$project', '$package'];
+const rankChildType = ['$result', '$datafile', '$task']
 const keyupEnterFun = (txt, analyzeText) => {
   if(txt === undefined) return;
   const txtLowerCase = txt.toLowerCase().trim();
   const separatedText = txtLowerCase.split(/\s/);
-
   if(separatedText.length < 1) return;
   const checkedAnlayTextIndex = analyzeText.findIndex((keyObj) => separatedText[0] === keyObj.commandText);
-  console.log(checkedAnlayTextIndex, 'checkedAnlayTextIndex')
+  console.log(checkedAnlayTextIndex, 'checkedAnlayTextIndex');
   if(checkedAnlayTextIndex === -1) return txt;
   let analyTextSite;
-  analyzeText.forEach((keyObj)=>{
+  analyzeText.forEach((keyObj) => {
     const index = separatedText.findIndex((text) => text === keyObj.text);
     if(index !== -1) analyTextSite = index;
   });
@@ -17,13 +17,40 @@ const keyupEnterFun = (txt, analyzeText) => {
   
   // 移去command text
   const joinSeparatedText = separatedText.join(' ');
-  console.log(joinSeparatedText, 'joinSeparatedText')
-  const commandQuotes = joinSeparatedText.match(/'(\w+\W+\w+)'/g);
-  console.log(commandQuotes, 'commandQuotes')
+  console.log(joinSeparatedText, 'joinSeparatedText');
+  const commandQuotes = joinSeparatedText.match(/'.*'/g);
+  console.log(commandQuotes, 'commandQuotes');
   // 移去指令再組合
-  const combinedText = /\//g;
+  const combinedText = /\\|\//g;
+  const commandFileType = {};
+
+  for(let i = 0 ; rankMainType.length > i ; i++){
+    const name = new RegExp (rankMainType[i]+ combinedText);
+    console.log(name,'name')
+    const test = joinSeparatedText.lastIndexOf(name);
+    console.log(test,'test');
+    if(joinSeparatedText.lastIndexOf(rankMainType[i] + combinedText)){
+      // const mainTypeName = joinSeparatedText.replace(rankMainType[i] + combinedText, '');
+      // commandFileType[rankMainType[i]] = mainTypeName;
+      // console.log(commandFileType, 'commandFileType')
+      // for(let j = 0 ; rankChildType.length > j ; j++){
+      //   if(mainTypeName.startsWith(rankChildType[j] + combinedText)){
+      //     const childTypeName = mainTypeName.replace(rankChildType[j] + combinedText, '');
+      //     commandFileType
+      //   }
+      // }
+      // const separatedBacksLash = joinSeparatedText.split(rankMainType[i] + combinedText);
+  //     // commandFileType[rankMainType[i]]= separatedBacksLash[1];
+  //     if(separatedBacksLash.length < 2) continue;
+  //     for(let j = 0 ; rankChildType.length > j ; j++){
+  //       // if(separatedBacksLash[1].startsWith(rankMainType[i]))
+  //     }
+    }
+  };
+  return
   const separatedBacksLash = joinSeparatedText.split(combinedText);
   console.log(separatedBacksLash, 'separatedBacksLash');
+
   //['project','project','result','result'];project取名project,result取名result
   // const separatedBacksLash = joinSeparatedText.split(/\//);
   const rankInfo = [];
@@ -53,19 +80,19 @@ const keyupEnterFun = (txt, analyzeText) => {
   // ]
   // $project/result/$result/resultname
   separatedBacksLash.forEach((text) => {
-    const checkedRankType = rankFileType.indexOf(text);
+    const checkedRankType = rankMainType.indexOf(text);
     if(checkedRankType !== -1){
-      if(rankInfo.length > 0 && rankInfo[rankInfo.length - 1].otherWord.length === 0)return rankInfo[rankInfo.length - 1].otherWord.push(text);
+      if(rankInfo.length > 0 && rankInfo[rankInfo.length - 1].projectName_fragment.length === 0)return rankInfo[rankInfo.length - 1].projectName_fragment.push(text);
       rankInfo.push({
         fileType: text,
-        otherWord:[],
-        commandText:analyzeCommandText[0]
-      })      
+        projectName_fragment: [],
+        commandText: analyzeCommandText[0],
+      });
     }else{
-      if(rankInfo.length > 0) rankInfo[rankInfo.length - 1].otherWord.push(text);
+      if(rankInfo.length > 0) rankInfo[rankInfo.length - 1].projectName_fragment.push(text);
     }
   })
-  console.log(rankInfo, 'rankInfo')
+  console.log(rankInfo, 'rankInfo');
   return txt
   // 如果project有'result'或是result有'project'該如何切割
   // ['project','projectname','...','result','resultname','...']
@@ -73,7 +100,7 @@ const keyupEnterFun = (txt, analyzeText) => {
   // separatedBacksLash.forEach((text, i) => {
   //   const checkedRankType = i % 2 === 0 ? true : false;
   //   if(checkedRankType){
-  //     const rankIndex = rankFileType.indexOf(text);
+  //     const rankIndex = rankMainType.indexOf(text);
   //     if(rankIndex !== -1){
   //       rankInfo.push({rank:text,fileName:''});
   //     }else{
