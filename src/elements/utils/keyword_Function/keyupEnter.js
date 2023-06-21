@@ -1,5 +1,7 @@
-const rankMainType = ['$project', '$package'];
-const rankChildType = ['$result', '$datafile', '$task']
+// const rankMainType = ['$project', '$package'];
+const rankMainType = [/\$project\//g, /\$package\//g];
+// const rankChildType = ['$result', '$datafile', '$task'];
+const rankChildType = [/\$result\//g,/\$datafile\//g,/\$task\//g];
 const keyupEnterFun = (txt, analyzeText) => {
   if(txt === undefined) return;
   const txtLowerCase = txt.toLowerCase().trim();
@@ -23,16 +25,36 @@ const keyupEnterFun = (txt, analyzeText) => {
   // 移去指令再組合
   const combinedText = /\\|\//g;
   const commandFileType = {};
-
+  let isMainType = false;
+  let isChildType = false;
   for(let i = 0 ; rankMainType.length > i ; i++){
-    const name = new RegExp (rankMainType[i]+ combinedText);
-    console.log(name,'name')
-    const test = joinSeparatedText.lastIndexOf(name);
-    console.log(test,'test');
-    if(joinSeparatedText.lastIndexOf(rankMainType[i] + combinedText)){
+    // const regMainType = /`${rankMainType[i]}`\\|\//g;
+    // const name = new RegExp (rankMainType[i]) + combinedText;
+    // const regMainType = /`${rankMainType[i]}`\//g;
+    // const regMainType = new RegExp(rankMainType[i]);
+    // console.log(regMainType, 'regMainType12')
+    const regMainTypeArr = joinSeparatedText.split(rankMainType[i]);
+    
+    const indexOfMainType = joinSeparatedText.match(rankMainType[i]);
+    console.log(indexOfMainType, 'indexOfMainType')
+    console.log(regMainTypeArr,'regMainTypeArr');
+    if(indexOfMainType.length === 1 && isMainType === false){
+      commandFileType[rankMainType[i]] = regMainTypeArr[regMainTypeArr.length - 1];
+      isMainType = true;
+      for(let j = 0 ; rankChildType.length > j ; j++){
+        // const regChildType = /`${rankChildType[j]}`\\|\//g;
+        const regChildType = new RegExp(`${rankChildType[j]}`);
+        const regChildTypeArr = commandFileType[rankMainType[i]].split(regChildType);
+        const indexOfChildType = regChildTypeArr.indexOf(rankChildType[j]);
+        if(indexOfChildType !== -1 && isChildType === false){
+          commandFileType[rankChildType[j]] = regChildTypeArr[regChildTypeArr.length - 1];
+          commandFileType[rankMainType[i]] = regChildTypeArr[indexOfChildType - 1];
+          isChildType = true;
+        }
+      }
       // const mainTypeName = joinSeparatedText.replace(rankMainType[i] + combinedText, '');
       // commandFileType[rankMainType[i]] = mainTypeName;
-      // console.log(commandFileType, 'commandFileType')
+      // console.log(commandFileType, 'commandFileType');
       // for(let j = 0 ; rankChildType.length > j ; j++){
       //   if(mainTypeName.startsWith(rankChildType[j] + combinedText)){
       //     const childTypeName = mainTypeName.replace(rankChildType[j] + combinedText, '');
@@ -40,17 +62,17 @@ const keyupEnterFun = (txt, analyzeText) => {
       //   }
       // }
       // const separatedBacksLash = joinSeparatedText.split(rankMainType[i] + combinedText);
-  //     // commandFileType[rankMainType[i]]= separatedBacksLash[1];
-  //     if(separatedBacksLash.length < 2) continue;
-  //     for(let j = 0 ; rankChildType.length > j ; j++){
-  //       // if(separatedBacksLash[1].startsWith(rankMainType[i]))
-  //     }
+      // commandFileType[rankMainType[i]]= separatedBacksLash[1];
+      // if(separatedBacksLash.length < 2) continue;
+      // for(let j = 0 ; rankChildType.length > j ; j++){
+      // if(separatedBacksLash[1].startsWith(rankMainType[i]))
+      // }
     }
   };
-  return
+  console.log(commandFileType, 'commandFileType')
+  // for(let i = 0)
   const separatedBacksLash = joinSeparatedText.split(combinedText);
   console.log(separatedBacksLash, 'separatedBacksLash');
-
   //['project','project','result','result'];project取名project,result取名result
   // const separatedBacksLash = joinSeparatedText.split(/\//);
   const rankInfo = [];

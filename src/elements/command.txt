@@ -51,3 +51,6 @@
   commandChatacter projectName/name/result/resultName/xx_result (可能)
   commandCharacter project/*/result/*
 }
+{
+  這算是閒暇之餘再寫的東西，根本就不算是計畫內
+}
