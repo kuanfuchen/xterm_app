@@ -34,7 +34,6 @@ const keyupEnterFun = (txt, analyzeText) => {
     // const regMainType = new RegExp(rankMainType[i]);
     // console.log(regMainType, 'regMainType12')
     const regMainTypeArr = joinSeparatedText.split(rankMainType[i]);
-    
     const indexOfMainType = joinSeparatedText.match(rankMainType[i]);
     console.log(indexOfMainType, 'indexOfMainType')
     console.log(regMainTypeArr,'regMainTypeArr');
